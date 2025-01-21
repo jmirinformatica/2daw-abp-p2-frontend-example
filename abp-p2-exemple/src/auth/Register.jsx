@@ -18,60 +18,19 @@ export const Register = ({ setLogin }) => {
 
         const { name,email,password } = register
 
-        if (register.password !== register.password2 )
-        {
-            alert ("Els passwords han de coincidir")
-        }
-
-        fetch("https://backend.insjoaquimmir.cat/api/register", {
-            headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
-            },
-            method: "POST",
-            // Si els noms i les variables coincideix, podem simplificar
-            body: JSON.stringify({ name, email,password})
-
-        })
-        .then((data) => data.json())
-        .then((resposta) => {
-            console.log(resposta);
-            if (resposta.success === true) {
-            //alert(resposta.authToken);
-            }
-            else
-            { 
-                setError(resposta.message);
-            }
-        })
-        .catch((data) => {
-            console.log(data);
-            alert("Catchch");
-          });
-
-        alert("He enviat les Dades:  " + email + "/" + password);
-
-        
-
-
+         // .....        
 
     }
 
-
     const handleChange = (e)=> {
 
-        e.preventDefault();
-  
+        e.preventDefault(); 
   
         setRegister({
-
                 ...register,
-                [e.target.name] : e.target.value
-                     
-    
+                [e.target.name] : e.target.value            
           })
-          console.log(register)
-          
+
     }
 
 
@@ -84,15 +43,15 @@ export const Register = ({ setLogin }) => {
                 <header className="mb-3 text-2xl font-bold">Crea Usuari</header>
                 
                 <div className="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                    <input type="text" name="name" placeholder="Name"  onChange={ handleChange}
+                    <input type="text" name="name" placeholder="Name"  onChange={ handleChange} value={register.name}
                         className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
                 </div>
                 <div className="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                    <input type="text" name="email" placeholder="Email"  onChange={ handleChange}
+                    <input type="text" name="email" placeholder="Email"  onChange={ handleChange} value={register.email}
                         className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
                 </div>
                 <div className="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                    <input type="password" name="password" placeholder="Password"  onChange={ handleChange}
+                    <input type="password" name="password" placeholder="Password"  onChange={ handleChange} value={register.password}
                         className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
                 </div>
                 <div className="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
