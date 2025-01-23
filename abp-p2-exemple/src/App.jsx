@@ -48,7 +48,7 @@ function App() {
         <>
         <Header/>
       
-         <Routes>
+         <Routes>  
             <Route path='*' element={<NotFound />} />
             <Route path="/" element={<Posts />}/>
            
