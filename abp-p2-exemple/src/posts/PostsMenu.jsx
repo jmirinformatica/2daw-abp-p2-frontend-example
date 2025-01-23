@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
 
 export const PostsMenu = () => {
 
@@ -55,6 +55,8 @@ export const PostsMenu = () => {
       </button>
     </div>
     </div>
+
+    <Outlet/>
     
     </>
   )

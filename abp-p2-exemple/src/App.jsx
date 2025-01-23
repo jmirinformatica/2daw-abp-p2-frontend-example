@@ -52,15 +52,16 @@ function App() {
             <Route path='*' element={<NotFound />} />
             <Route path="/" element={<Posts />}/>
            
-            <Route path="/posts" element={<><PostsMenu/><PostsList/></>} />
-            <Route path="/posts/list" element={ <><PostsMenu/><PostsList/></> } /> 
-            <Route path="/posts/plist" element={ <><PostsMenu/><PostsPList/></> } /> 
+            <Route element={<PostsMenu />}>
+              <Route path="/posts" element={<PostsList/>} />
+              <Route path="/posts/list" element={ <PostsList/> } /> 
+              <Route path="/posts/plist" element={ <PostsPList/> } /> 
 
-            <Route path="/posts/grid" element={ <><PostsMenu/><PostsGrid/></> } /> 
-            <Route path="/posts/add" element={ <><PostsMenu/><PostsAdd/></> } /> 
-            <Route path="/posts/edit/:id" element={  <><PostsMenu/><PostEdit /></> } />
-            <Route path="/posts/:id" element={ <><PostsMenu/><Post/></> } /> 
-            
+              <Route path="/posts/grid" element={ <PostsGrid/> } /> 
+              <Route path="/posts/add" element={ <PostsAdd/> } /> 
+              <Route path="/posts/edit/:id" element={  <PostEdit /> } />
+              <Route path="/posts/:id" element={ <Post/>} /> 
+            </Route>
             
             
              {/* <Route path="/posts" element={ <Places />} />
