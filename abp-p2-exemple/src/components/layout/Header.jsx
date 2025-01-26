@@ -8,8 +8,7 @@ export const Header = () => {
 
     const apiUrl = process.env.API_URL;
 
-    let { authToken,setAuthToken } = useContext(UserContext)
-    let [ usuari,setUsuari] = useState("")
+    let { usuari,setUsuari, authToken,setAuthToken } = useContext(UserContext)
     let [ roles, setRoles] = useState([]);
     
 
@@ -45,9 +44,7 @@ export const Header = () => {
                 console.log(result.user.name)
                 console.log(result.user.email)
 
-                setUsuari(result.user.name)
-                setEmail(result.user.email)
-
+                setUsuari(result.user)
 
             }
 
@@ -114,7 +111,7 @@ export const Header = () => {
               </div>
           </div>
           <div>
-              { usuari } 
+              { usuari.name } 
               {/* (               { roles.map ((v)=> ( <span key={v}> {v} </span>))}) -  */}
               <a className="text-orange-800" onClick={logout} href=""> - Logout</a>
               

@@ -155,10 +155,10 @@ export const Post = () => {
              
 
                 {/* <ReviewAdd id={place.id}/> */}
-                {/* <CommentsList
+                <CommentsList
                   id={post.id}
                   comments_count={post.comments_count}
-                /> */}
+                />
               </div>
             </div>
           </div>

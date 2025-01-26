@@ -4,22 +4,27 @@ import { Comment } from "./Comment";
 
 import { useContext } from "react";
 import { UserContext } from "../../userContext";
-
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { CommentAdd } from "./CommentAdd";
-import { CommentsContext } from "./commentsContext";
+import { getComments } from "./thunks";
 // Fem servir un context únicament dins de tots els components de Reviews
 
 export const CommentsList = ({ id, comments_count }) => {
   //let {setAdd, setRefresca, reviewsCount, setReviewsCount } = useContext(ReviewsContext)
-  let { usuari, setUsuari, authToken, setAuthToken } = useContext(UserContext);
+  let { usuari,setUsuari, authToken, setAuthToken } = useContext(UserContext);
 
-  let [error, setError] = useState("");
-  const [refresca, setRefresca] = useState(false);
-  const [add, setAdd] = useState(true);
-  const [commentsCount, setCommentsCount] = useState(comments_count);
+  const dispatch = useDispatch();
 
-  const [reviews, setReviews] = useState([]);
+  const { comments = [], page=0, isLoading=true, add=true, error="", commentsCount=0 } = useSelector((state) => state.comments);
+  
+
+  // let [error, setError] = useState("");
+  //const [refresca, setRefresca] = useState(false);
+  // const [add, setAdd] = useState(true);
+  //const [commentsCount, setCommentsCount] = useState(comments_count);
+
+  // const [reviews, setReviews] = useState([]);
 
   // review ={v} setAdd={setAdd } setRefresca={ setRefresca}
 
@@ -46,22 +51,25 @@ export const CommentsList = ({ id, comments_count }) => {
     }
 
     resposta.data.map((v) => {
-      if (v.user.email === usuari) {
+      if (v.user.email === usuari.email) {
         setAdd(false);
         console.log("Te review");
       }
     });
   };
 
+
   useEffect(() => {
-    listComments();
-    setRefresca(false);
-  }, [refresca]);
+    //dispatch(setReviewsCount(reviews_count))
+    dispatch(getComments(0, id, authToken,usuari.email));
+  }, [add]);
+  // useEffect(() => {
+  //   listComments();
+  //   setRefresca(false);
+  // }, [refresca]);
 
   return (
-    <CommentsContext.Provider
-      value={{ setAdd, setRefresca, commentsCount, setCommentsCount }}
-    >
+   <>
       {add ? <CommentAdd id={id} /> : <></>}
       <div class="flex mx-auto items-center justify-center  mt-6 mx-8 mb-4 max-w-lg">
         {commentsCount == 0 ? (
@@ -83,9 +91,9 @@ export const CommentsList = ({ id, comments_count }) => {
         <></>
       )}
 
-      {reviews.map((v) => {
+      {comments.map((v) => {
         return <Comment key={v.id} comment={v} />;
       })}
-    </CommentsContext.Provider>
+  </>
   );
 };
