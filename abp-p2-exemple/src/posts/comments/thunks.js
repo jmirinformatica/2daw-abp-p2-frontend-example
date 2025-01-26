@@ -51,9 +51,11 @@ export const getComments = (page = 0, id, authToken, usuari = "") => {
 export const delComment = (comment, authToken) => {
     return async (dispatch, getState) => {
 
+        const apiUrl = process.env.API_URL;
 
-        const data = await fetch(
-            "https://backend.insjoaquimmir.cat/api/posts/" +
+
+        const data = await fetch(apiUrl+
+            "/posts/" +
             comment.post.id +
             "/comments/" +
             comment.id,
@@ -86,7 +88,9 @@ export const delComment = (comment, authToken) => {
 export const addComment = (review, id, authToken) => {
     return async (dispatch, getState) => {
 
-        let data = await fetch("https://backend.insjoaquimmir.cat/api/posts/" + id + "/comments", {
+        const apiUrl = process.env.API_URL;
+
+        let data = await fetch(apiUrl+"/posts/" + id + "/comments", {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
