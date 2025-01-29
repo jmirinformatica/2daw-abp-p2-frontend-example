@@ -28,7 +28,61 @@ export const Post = () => {
   let [error, setError] = useState("");
 
 
+  let [liked, setLiked] = useState(false);
+  let [likes, setLikes] = useState(0)
   
+  
+    const unlike = async () => {
+  
+      setLiked(false);
+      console.log("Not Favorited");
+      const data = await fetch(apiUrl+ "/posts/" + id + "/likes",
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + authToken,
+          },
+          method: "DELETE",
+        }
+      );
+      const resposta = await data.json();
+      if (resposta.success == true) {
+        setLiked(false);
+        setLikes(likes-1)
+        
+      }
+    
+  
+    }
+    const like = async () => {
+      try {
+        const data = await fetch(apiUrl+ "/posts/" + id + "/likes",
+          {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + authToken,
+            },
+            method: "POST",
+          }
+        );
+        const resposta = await data.json();
+  
+        if (resposta.success == true) {
+          setLiked(true);
+          setLikes(likes+1)
+          
+        } else {
+          setLiked(false);
+          console.log("Epp, algo ha passat ");
+        }
+      } catch (e) {
+        console.log(e);
+      }
+  
+  
+    };
   const getPost = async () => {
     try {
 
@@ -46,9 +100,13 @@ export const Post = () => {
       const resposta = await data.json();
 
       // Faria falta control·lar possible error
+      console.log("AAAAAAAAAAAAAAAAAA")
       console.log(resposta)
       if (resposta.success == true) { setError("");  setPost(resposta.data) }
       else setError(resposta.message)
+
+      setLiked(resposta.data.liked)
+      setLikes(resposta.data.likes_count)
 
       setIsLoading(false)
           
@@ -152,7 +210,23 @@ export const Post = () => {
                 ) : (
                   <></>
                 )}
-             
+              {liked ? (
+                  <a
+                    href="#"
+                    onClick={(e) => unlike(id, e)}
+                    className="bg-blue-300 hover:bg-blue-400 text-white font-bold py-2 px-4 h-10 md:h-10 uppercase"
+                  >
+                    - ❤️ {likes}
+                  </a>
+                ) : (
+                  <a
+                    href="#"
+                    onClick={(e) => like(id, e)}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 h-10 md:h-10 uppercase"
+                  >
+                    + ❤️ {likes}
+                  </a>
+                )}
 
                 {/* <ReviewAdd id={place.id}/> */}
                 <CommentsList

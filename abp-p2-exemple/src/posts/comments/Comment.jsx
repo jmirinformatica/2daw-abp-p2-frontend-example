@@ -9,7 +9,7 @@ import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 import { delComment } from "./thunks";
 
 export const Comment = ({ comment }) => {
-  const { usuari, email,setUsuari, authToken, setAuthToken } = useContext(UserContext);
+  const { usuari, setUsuari, authToken, setAuthToken } = useContext(UserContext);
   
   const { comments = [], page=0, isLoading=true, add=true, error="", commentsCount=0 } = useSelector((state) => state.comments);
   const dispatch = useDispatch();
@@ -93,7 +93,7 @@ export const Comment = ({ comment }) => {
                 </span>
               </div>
             </div>
-            {comment.user.email === email ? (
+            {comment.user.email === usuari.email ? (
               <>
                 <button
                   onClick={(e) => dispatch( delComment(comment,authToken))}
