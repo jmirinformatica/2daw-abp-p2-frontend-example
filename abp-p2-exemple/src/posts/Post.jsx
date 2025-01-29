@@ -68,13 +68,14 @@ export const Post = () => {
   }, []);
 
 
-  const deletePost = (id, e) => {
+  const deletePost = async (id, e) => {
     e.preventDefault();
 
     let confirma = confirm("Estas  segur?");
 
     if (confirma) {
-      fetch("https://backend.insjoaquimmir.cat/api/posts/" + id, {
+
+      const temp = await fetch(apiUrl+"/posts/" + id, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -82,15 +83,14 @@ export const Post = () => {
         },
         method: "DELETE",
       })
-        .then((data) => data.json())
-        .then((resposta) => {
-          console.log(resposta);
-          if (resposta.success == true) {
+      const resposta = await temp.json()
+        
+      if (resposta.success == true) {
             console.log("OK");
             // provoca el refrescat del component i la reexecució de useEffect
             setRefresca(true);
           }
-        });
+     
     }
   };
 
@@ -131,7 +131,7 @@ export const Post = () => {
               <div className="mt-10 h-12 max-h-full md:max-h-screen">
               
 
-                {post.author.email === usuari ? (
+                {post.author.email === usuari.email ? (
                   <>
                     <Link
                       to={"/posts/edit/" + id}

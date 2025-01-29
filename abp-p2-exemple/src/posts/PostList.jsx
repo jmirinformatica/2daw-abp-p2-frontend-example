@@ -32,7 +32,7 @@ export const PostList = ({v, deletePost}) => {
         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
         <div className="flex items-center space-x-2">
         <Link to={"/posts/"+v.id} className=" text-cyan-600"> 👁️ </Link>
-        { v.author.email === usuari ? 
+        { v.author.email === usuari.email ? 
         (
             <>
               

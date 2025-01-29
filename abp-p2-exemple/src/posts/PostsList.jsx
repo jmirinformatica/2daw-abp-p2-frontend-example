@@ -163,7 +163,7 @@ export const PostsList = () => {
                     return (
             
                       <>
-                      { v.status.name== 'published' || v.author.email == usuari ? (<PostList  deletePost={ deletePost } key={v.id} v={v}/>) : <></> }
+                      { v.status.name== 'published' || v.author.email == usuari.email ? (<PostList  deletePost={ deletePost } key={v.id} v={v}/>) : <></> }
                   
                       </>
                       )
