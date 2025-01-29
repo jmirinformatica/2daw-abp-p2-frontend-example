@@ -109,6 +109,8 @@ export const PostEdit = () => {
 
     console.log("Editant un Post....")
     console.log(formulari)
+    console.log(body)
+    console.log(status_id)
     // Enviam dades a l'aPI i recollim resultat
     try {
 
