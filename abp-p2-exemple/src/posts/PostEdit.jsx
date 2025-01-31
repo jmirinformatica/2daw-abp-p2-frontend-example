@@ -108,9 +108,8 @@ export const PostEdit = () => {
 
 
     console.log("Editant un Post....")
-    console.log(formulari)
-    console.log(body)
-    console.log(status_id)
+  
+    console.log(JSON.stringify({ body: body, status_id: status_id }))
     // Enviam dades a l'aPI i recollim resultat
     try {
 
@@ -121,7 +120,6 @@ export const PostEdit = () => {
           'Authorization': 'Bearer ' + authToken
         },
         method: "PUT",
-        // body: JSON.stringify({ name,description,upload,latitude,longitude,visibility })
         body: JSON.stringify({ body: body, status_id: status_id })
 
 
@@ -194,7 +192,7 @@ export const PostEdit = () => {
 
 
             <label
-              htmlFor="status_id  "
+              htmlFor="status_id"
               className="block mb-2 text-sm text-gray-600 dark:text-white"
             >
               Selecciona la visibilitat

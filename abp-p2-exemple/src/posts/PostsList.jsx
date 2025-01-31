@@ -59,7 +59,7 @@ export const PostsList = () => {
     }
     catch(error)
     {
-      comsole.log(error)
+      console.log(error)
     }
 
     
